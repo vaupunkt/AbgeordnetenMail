@@ -74,32 +74,35 @@ export default function Home() {
     })
   );
 
-  const memberList: memberList[] = members.map((member, index) => ({
-    id: index,
-    name: member["Vornamen"] + " " + member["Nachname"],
-    email: createEmail(member),
-    constituency: {
-      constituency_type: member["Gebietsart"],
-      constituency_id: Number(member["Gebietsnummer"]),
-      constituency_name: member["Gebietsname"],
-    },
-    party: member["Gruppenname"],
-    party_long: member["GruppennameLang"],
-    emoji:
-      member["Gruppenname"] === ("CSU" || "CDU")
-        ? "⚫️"
-        : member["Gruppenname"] === "SPD"
-        ? "🔴"
-        : member["Gruppenname"] === "DIE LINKE"
-        ? "🟣"
-        : member["Gruppenname"] === "GRÜNE"
-        ? "🟢"
-        : member["Gruppenname"] === "FDP"
-        ? "🟡"
-        : member["Gruppenname"] === "AfD"
-        ? "🔵"
-        : "⚪️",
-  }));
+  const memberList: memberList[] = members
+    .map((member, index) => ({
+      id: index,
+      name: member["Vornamen"] + " " + member["Nachname"],
+      email: createEmail(member),
+      constituency: {
+        constituency_type: member["Gebietsart"],
+        constituency_id: Number(member["Gebietsnummer"]),
+        constituency_name: member["Gebietsname"],
+      },
+      party: member["Gruppenname"],
+      party_long: member["GruppennameLang"],
+      emoji:
+        member["Gruppenname"] === ("CSU" || "CDU")
+          ? "⚫️"
+          : member["Gruppenname"] === "SPD"
+          ? "🔴"
+          : member["Gruppenname"] === "DIE LINKE"
+          ? "🟣"
+          : member["Gruppenname"] === "GRÜNE"
+          ? "🟢"
+          : member["Gruppenname"] === "FDP"
+          ? "🟡"
+          : member["Gruppenname"] === "AfD"
+          ? "🔵"
+          : "⚪️",
+    }))
+    .filter((member) => afdFilter === false || member.party !== "AfD");
+
   const memberDisplay: memberList[] =
     searchMember.length > 0
       ? searchMember.flatMap((member) =>
