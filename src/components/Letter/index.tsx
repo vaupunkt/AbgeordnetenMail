@@ -146,6 +146,7 @@ export default function Letter({ mailAdresses }: { mailAdresses: string }) {
             display: "flex",
             width: "100%",
             justifyContent: "space-evenly",
+            gap: "10px",
           }}>
           <Button
             variant='outlined'

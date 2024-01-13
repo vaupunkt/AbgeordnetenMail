@@ -1,7 +1,6 @@
 import { Checkbox, TextField } from "@mui/material";
 import * as React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
-import members from "../../data/btw21_members.json" assert { type: "json" };
 import { CheckBox, CheckBoxOutlineBlankOutlined } from "@material-ui/icons";
 
 export type memberList = {
@@ -22,8 +21,8 @@ const icon = <CheckBoxOutlineBlankOutlined fontSize='small' />;
 const checkedIcon = <CheckBox fontSize='small' />;
 
 export default function MemberAutocomplete({
+  memberList,
   handleSearchValue,
-  afdFilter,
 }: {
   handleSearchValue: (
     value: {
@@ -31,37 +30,8 @@ export default function MemberAutocomplete({
       name: string;
     }[]
   ) => void;
-  afdFilter: boolean;
+  memberList: memberList[];
 }) {
-  const memberList: memberList[] = members
-    .map((member, index) => ({
-      id: index,
-      name: member["Vornamen"] + " " + member["Nachname"],
-      email: createEmail(member),
-      constituency: {
-        constituency_type: member["Gebietsart"],
-        constituency_id: Number(member["Gebietsnummer"]),
-        constituency_name: member["Gebietsname"],
-      },
-      party: member["Gruppenname"],
-      party_long: member["GruppennameLang"],
-      emoji:
-        member["Gruppenname"] === ("CSU" || "CDU")
-          ? "⚫️"
-          : member["Gruppenname"] === "SPD"
-          ? "🔴"
-          : member["Gruppenname"] === "DIE LINKE"
-          ? "🟣"
-          : member["Gruppenname"] === "GRÜNE"
-          ? "🟢"
-          : member["Gruppenname"] === "FDP"
-          ? "🟡"
-          : member["Gruppenname"] === "AfD"
-          ? "🔵"
-          : "⚪️",
-    }))
-    .filter((member) => afdFilter === false || member.party !== "AfD");
-
   const memberOptions = memberList
     .sort(function (a, b) {
       if (a.name < b.name) {

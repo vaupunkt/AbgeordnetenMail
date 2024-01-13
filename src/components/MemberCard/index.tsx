@@ -1,14 +1,12 @@
-import { Box, Card, CardContent, Checkbox, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 import { memberList } from "../MemberAutocomplete";
 import { useState } from "react";
 import { CheckBoxOutlineBlank, CheckBoxOutlined } from "@material-ui/icons";
 
 export default function MemberCard({
   children,
-  additional,
   handleMemberSelection,
 }: {
-  additional?: boolean;
   children: memberList;
   handleMemberSelection: (member: memberList) => void;
 }) {

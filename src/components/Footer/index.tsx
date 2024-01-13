@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export default function Footer() {
   return (
@@ -13,7 +13,7 @@ export default function Footer() {
         flexWrap: "wrap",
         justifyContent: "space-between",
       }}>
-      <Box sx={{ width: "50%" }}>
+      <Box sx={{}}>
         <Typography variant='h6' align='justify'>
           Impressum (Angaben gemäß § 5 TMG)
         </Typography>
