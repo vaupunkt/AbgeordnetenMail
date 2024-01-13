@@ -210,7 +210,6 @@ export default function Home() {
           ) : searchOption === "member" ? (
             <MemberAutocomplete
               memberList={memberList}
-              afdFilter={afdFilter}
               handleSearchValue={handleSearchValue}
             />
           ) : null}
@@ -257,7 +256,6 @@ export default function Home() {
           ? constituencyAdditionalDisplay.map((member) => (
               <MemberCard
                 handleMemberSelection={handleMemberSelection}
-                additional
                 key={member.id}>
                 {member}
               </MemberCard>
