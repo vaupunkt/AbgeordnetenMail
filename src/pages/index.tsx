@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   FormControl,
   FormControlLabel,
@@ -22,6 +23,7 @@ import constituencies from "../data/btw21_constituencies.json" assert { type: "j
 import MemberCard from "@/components/MemberCard";
 import Letter from "@/components/Letter";
 import Footer from "@/components/Footer";
+import { Share } from "@mui/icons-material";
 
 export default function Home() {
   const [searchOption, setSearchOption] = useState<string>("member");
@@ -268,6 +270,7 @@ export default function Home() {
         maxWidth={false}>
         <Letter mailAdresses={mailAdresses} />
       </Container>
+
       <Container
         maxWidth={false}
         sx={{

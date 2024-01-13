@@ -1,7 +1,52 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Box, Typography } from "@mui/material";
+import { Share } from "@material-ui/icons";
+import { Box, Button, Typography } from "@mui/material";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+  const [pageUrl, setPageUrl] = useState<string>("");
+  const [userAgent, setUserAgent] = useState<string>("");
+
+  useEffect(() => {
+    const userAgent =
+      typeof navigator === "undefined" ? "SSR" : navigator.userAgent;
+    const isAndroid = () => Boolean(userAgent.match(/Android/i));
+    const isIos = () => Boolean(userAgent.match(/iPhone|iPad|iPod/i));
+    const isOpera = () => Boolean(userAgent.match(/Opera Mini/i));
+    const isWindows = () => Boolean(userAgent.match(/IEMobile/i));
+    const isSSR = () => Boolean(userAgent.match(/SSR/i));
+    const isMobile = () =>
+      Boolean(isAndroid() || isIos() || isOpera() || isWindows());
+    const isDesktop = () => Boolean(!isMobile() && !isSSR());
+    if (isMobile()) {
+      setUserAgent("mobile");
+      if (window) {
+        const currentURL = new URL(window.location.href);
+        setPageUrl(currentURL.toString());
+      } else {
+        setPageUrl("");
+        setUserAgent("Desktop");
+      }
+    }
+  }, []);
+  function handleShare() {
+    console.log(pageUrl);
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Prüft ein AFD Verbot",
+          text: "Sende eine Mail an Abgeordnete",
+          url: pageUrl,
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error sharing", error));
+    } else {
+      console.log("Web Share API not supported in your browser");
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -29,6 +74,17 @@ export default function Footer() {
         <Typography sx={{ userSelect: "none" }} variant='body1' align='justify'>
           E-Mail: mail@velikokardziev.de
         </Typography>
+        {userAgent === "mobile" ? (
+          <Box sx={{ margin: "15px 0" }}>
+            <Button
+              variant='outlined'
+              color='primary'
+              onClick={handleShare}
+              startIcon={<Share />}>
+              Diese Seite weiterleiten
+            </Button>
+          </Box>
+        ) : null}
       </Box>
       <Box sx={{ maxWidth: "500px" }}>
         <Typography variant='body2' align='justify'>
@@ -52,4 +108,12 @@ export default function Footer() {
       </Box>
     </Box>
   );
+}
+
+export async function getServerSideProps() {
+  const pageUrl = process.env.SITE_URL;
+
+  return {
+    props: { pageUrl },
+  };
 }
