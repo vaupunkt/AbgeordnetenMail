@@ -227,6 +227,14 @@ export default function Home() {
           width: "100vw",
           justifyContent: "center",
         }}>
+        {constituencyMainDisplay.length > 0 ? (
+          <Typography
+            variant='h5'
+            component='div'
+            sx={{ width: "100vw", textAlign: "center" }}>
+            Direktmandat:
+          </Typography>
+        ) : null}
         {searchOption === "community" && constituencyMainDisplay
           ? constituencyMainDisplay.map((member) => (
               <MemberCard
