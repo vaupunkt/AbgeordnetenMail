@@ -37,7 +37,6 @@ export default function ConstituencyAutocomplete({
   return (
     <Autocomplete
       disablePortal
-      sx={{ width: 500 }}
       disableListWrap
       id='searchField'
       PopperComponent={StyledPopper}
@@ -48,7 +47,6 @@ export default function ConstituencyAutocomplete({
       }
       isOptionEqualToValue={(option, value) => option.id === value.id}
       onInputChange={(event, value) => {
-        console.log(event);
         handleSearchValue(value);
       }}
       renderInput={(params) => <TextField {...params} label={"Gemeinde"} />}

@@ -1,16 +1,12 @@
 import {
   Box,
   Button,
-  Card,
   Container,
   FormControl,
-  InputLabel,
-  List,
-  ListItem,
-  MenuItem,
+  FormControlLabel,
+  NativeSelect,
   Paper,
-  Select,
-  SelectChangeEvent,
+  Switch,
   TextField,
   Typography,
 } from "@mui/material";
@@ -21,40 +17,13 @@ import ConstituencyAutocomplete, {
   constituencyOption,
 } from "@/components/ConstituencyAutocomplete";
 import MemberAutocomplete, {
+  createEmail,
   memberList,
 } from "@/components/MemberAutocomplete";
 import members from "../data/btw21_members.json" assert { type: "json" };
 import constituencies from "../data/btw21_constituencies.json" assert { type: "json" };
 import MemberCard from "@/components/MemberCard";
-
-const firstPassage = "Sehr geehrter Bundestagsabgeordneter,";
-const secondPassage =
-  "Ich schreibe Ihnen, um meine Bedenken hinsichtlich der Alternative für Deutschland (AfD) zum Ausdruck zu bringen. Als Bürger dieses Landes bin ich besorgt über die Auswirkungen, die diese Partei auf unsere Gesellschaft hat. Ihre politischen Positionen und Rhetorik haben zu einer zunehmenden Polarisierung und Spaltung in unserer Gesellschaft geführt.";
-const thirdPassage =
-  "Es ist wichtig, dass wir als Gesellschaft eine offene und ehrliche Diskussion über die Rolle der AfD in unserer Politik führen. Ich bitte Sie daher, das Thema eines Verbotsverfahrens gegen die AfD im Bundestag zur Diskussion zu stellen. Es ist von entscheidender Bedeutung, dass wir die Auswirkungen ihrer Politik auf unsere Demokratie und unsere Gesellschaft gründlich untersuchen.";
-const fourthPassage =
-  "Hier sind drei Argumente, die meiner Meinung nach für ein Verbot der AfD sprechen:";
-const fithPassage =
-  "Gefährdung der Demokratie: Die AfD hat wiederholt Positionen vertreten, die den Grundprinzipien unserer Demokratie widersprechen. Dies untergräbt das Vertrauen in unsere demokratischen Institutionen und gefährdet die Stabilität unserer Gesellschaft.";
-const sixthPassage =
-  "Förderung von Hass und Intoleranz: Die AfD hat wiederholt rassistische, fremdenfeindliche und islamfeindliche Äußerungen getätigt. Diese Rhetorik fördert Hass und Intoleranz und trägt zu einer Atmosphäre der Angst und Unsicherheit bei.";
-const seventhPassage =
-  "Untergrabung des sozialen Zusammenhalts: Die Politik der AfD trägt zur Spaltung unserer Gesellschaft bei. Anstatt den sozialen Zusammenhalt zu fördern, schürt die Partei Konflikte und fördert die Entfremdung zwischen verschiedenen Gruppen in unserer Gesellschaft.";
-const eigthPassage =
-  "Ich möchte mich in diesem Land sicher und wohl fühlen. Aber die Aktivitäten und die Rhetorik der AfD schaffen eine Atmosphäre der Unsicherheit und Angst. Ich bitte Sie daher, diese Angelegenheit ernst zu nehmen und Maßnahmen zu ergreifen, um unsere Gesellschaft zu schützen.";
-const ninthPassage =
-  "Ich verstehe, dass ein Parteiverbot ein drastischer Schritt ist und nicht leichtfertig unternommen werden sollte. Aber ich glaube, dass es angesichts der aktuellen Umstände notwendig ist, diese Option ernsthaft in Betracht zu ziehen. Ich danke Ihnen für Ihre Aufmerksamkeit und hoffe, dass Sie diese Angelegenheit ernst nehmen.";
-const emailText = [
-  firstPassage,
-  secondPassage,
-  thirdPassage,
-  fourthPassage,
-  fithPassage,
-  sixthPassage,
-  seventhPassage,
-  eigthPassage,
-  ninthPassage,
-];
+import Letter from "@/components/Letter";
 
 export default function Home() {
   const [searchOption, setSearchOption] = useState<string>("");
@@ -65,22 +34,35 @@ export default function Home() {
       name: string;
     }[]
   >([]);
-  const handleSearchOption = (event: SelectChangeEvent) => {
+  const [selectedMember, setSelectedMember] = useState<memberList[]>([]);
+  const [afdFilter, setAfdFilter] = useState<boolean>(true);
+
+  const handleSearchOption = (event: React.BaseSyntheticEvent) => {
     setSearchConstituency("");
     setSearchMember([]);
-    setSearchOption(event.target.value as string);
-    console.log(event.target.value);
+    setSelectedMember([]);
+    setSearchOption(event.target.value);
   };
 
   const handleSearchValue = (value: any) => {
-    console.log("Value:", value);
     if (searchOption === "member") {
       setSearchMember(value);
-      console.log("member:", value);
+      setSelectedMember(memberDisplay);
     } else {
       setSearchConstituency(value);
-      console.log("constituency:", value);
+      setSelectedMember([]);
     }
+  };
+
+  const handleMemberSelection = (member: memberList) => {
+    const isMemberSelected = selectedMember.find(
+      (item) => item.id === member.id
+    );
+    isMemberSelected
+      ? setSelectedMember(
+          selectedMember.filter((item) => item.id !== member.id)
+        )
+      : setSelectedMember([...selectedMember, member]);
   };
 
   const constituencyOptions: constituencyOption[] = constituencies.map(
@@ -95,6 +77,7 @@ export default function Home() {
   const memberList: memberList[] = members.map((member, index) => ({
     id: index,
     name: member["Vornamen"] + " " + member["Nachname"],
+    email: createEmail(member),
     constituency: {
       constituency_type: member["Gebietsart"],
       constituency_id: Number(member["Gebietsnummer"]),
@@ -117,33 +100,41 @@ export default function Home() {
         ? "🔵"
         : "⚪️",
   }));
-  const memberDisplay: memberList[] | null =
+  const memberDisplay: memberList[] =
     searchMember.length > 0
       ? searchMember.flatMap((member) =>
           memberList.filter((memberItem) => memberItem.id === member.id)
         )
-      : null;
+      : [];
 
-  const constituencyMainDisplay: memberList[] | null = memberList.filter(
-    (member) =>
-      member.constituency.constituency_id +
-        " - " +
-        member.constituency.constituency_name ===
-      searchConstituency
-  );
+  const constituencyMainDisplay: memberList[] = memberList
+    .filter(
+      (member) =>
+        member.constituency.constituency_id +
+          " - " +
+          member.constituency.constituency_name ===
+        searchConstituency
+    )
+    .filter((member) => afdFilter === false || member.party !== "AfD");
 
-  const constituencyAdditionalDisplay: memberList[] | null = memberList.filter(
-    (member) =>
-      member.constituency.constituency_type === "Land" &&
-      member.constituency.constituency_id ===
-        constituencyOptions.find(
-          (constituency) =>
-            constituency.constituency_id +
-              " - " +
-              constituency.constituency_name ===
-            searchConstituency
-        )?.constituency_country_id
-  );
+  const constituencyAdditionalDisplay: memberList[] = memberList
+    .filter(
+      (member) =>
+        member.constituency.constituency_type === "Land" &&
+        member.constituency.constituency_id ===
+          constituencyOptions.find(
+            (constituency) =>
+              constituency.constituency_id +
+                " - " +
+                constituency.constituency_name ===
+              searchConstituency
+          )?.constituency_country_id
+    )
+    .filter((member) => afdFilter === false || member.party !== "AfD");
+
+  const mailAdresses: string = selectedMember
+    .map((member) => member.email)
+    .join(",");
 
   return (
     <>
@@ -153,153 +144,121 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main>
-        <Container
-          maxWidth={false}
+      <Container
+        maxWidth={false}
+        sx={{
+          overflow: "auto",
+          paddingRight: "0px !important",
+          paddingLeft: "0px !important",
+          maxWidth: "100%",
+          width: "100vw",
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          paddingTop: "50px",
+          paddingBottom: "50px",
+        }}>
+        <Box
           sx={{
-            width: "100vw",
             display: "flex",
             flexDirection: "column",
-            gap: "10px",
-            marginTop: "50px",
-            marginBottom: "50px",
+            justifyContent: "center",
+            marginTop: "100px",
+            marginBottom: "100px",
           }}>
-          <FormControl
-            sx={{ width: "500px", textAlign: "center", margin: "auto" }}>
-            <InputLabel id='selectSearchOption'>
-              Suche deine*n Abgeordnete*n
-            </InputLabel>
-            <Select
-              labelId='selectSearchOption'
-              id='selectSearchOption'
-              value={searchOption}
-              onChange={(event) => handleSearchOption(event)}>
-              <MenuItem value={"member"}>Namen</MenuItem>
-              <MenuItem value={"community"}>Gemeinde / Wahlkreis</MenuItem>
-            </Select>
-          </FormControl>
-          <Box sx={{ margin: "auto" }}>
-            {searchOption === "community" ? (
-              <ConstituencyAutocomplete handleSearchValue={handleSearchValue} />
-            ) : searchOption === "member" ? (
-              <MemberAutocomplete handleSearchValue={handleSearchValue} />
-            ) : null}
-          </Box>
-        </Container>
-        <Container
-          maxWidth={false}
+          <Typography variant='h2' component='div' sx={{ textAlign: "center" }}>
+            AFD Verbot jetzt?
+          </Typography>
+          <Typography variant='h3' component='div' sx={{ textAlign: "center" }}>
+            Schreibe deine*n Abgeordnet*innen
+          </Typography>
+        </Box>
+        <Box
           sx={{
             display: "flex",
-            flexWrap: "wrap",
-            gap: "20px",
-            width: "100vw",
-            justifyContent: "center",
+            width: "100%",
+            justifyContent: "space-evenly",
+            margin: "auto",
           }}>
-          {searchOption === "community" && constituencyMainDisplay
-            ? constituencyMainDisplay.map((member) => (
-                <MemberCard key={member.id}>{member}</MemberCard>
-              ))
-            : null}
-          {searchOption === "member" && memberDisplay
-            ? memberDisplay.map((member) => (
-                <MemberCard key={member.id}>{member}</MemberCard>
-              ))
-            : null}
-          {constituencyAdditionalDisplay.length > 0 ? (
-            <Typography
-              variant='h5'
-              component='div'
-              sx={{ width: "100vw", textAlign: "center" }}>
-              Vielleicht interessieren sich auch diese Abgeordneten für deine
-              Nachricht:
-            </Typography>
+          <FormControl sx={{ textAlign: "center", minWidth: "60%" }}>
+            <NativeSelect
+              id='selectSearchOption'
+              defaultValue='member'
+              onChange={(event) => handleSearchOption(event)}>
+              <option value={"member"}>Namen</option>
+              <option value={"community"}>Gemeinde / Wahlkreis</option>
+            </NativeSelect>
+          </FormControl>
+          <FormControlLabel
+            control={<Switch onChange={() => setAfdFilter(!afdFilter)} />}
+            label='mit AFD'
+          />
+        </Box>
+        <Box sx={{ margin: "auto", width: "80vw" }}>
+          {searchOption === "community" ? (
+            <ConstituencyAutocomplete handleSearchValue={handleSearchValue} />
+          ) : searchOption === "member" ? (
+            <MemberAutocomplete
+              afdFilter={afdFilter}
+              handleSearchValue={handleSearchValue}
+            />
           ) : null}
-          {searchOption === "community" && constituencyAdditionalDisplay
-            ? constituencyAdditionalDisplay.map((member) => (
-                <MemberCard key={member.id}>{member}</MemberCard>
-              ))
-            : null}
-        </Container>
-        <Container maxWidth={false}>
-          <Paper
-            sx={{
-              maxWidth: "800px",
-              width: "70vw",
-              minWidth: "200px",
-              padding: "40px",
-              margin: "auto",
-            }}
-            square={false}>
-            <Box
-              sx={{
-                display: "flex",
-                gap: "10px",
-                justifyItems: "center",
-                flexDirection: "column",
-              }}>
-              <Typography
-                variant='subtitle2'
-                component='div'
-                sx={{ paddingLeft: "30px" }}>
-                Betreff:
-              </Typography>
-              <Container
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}>
-                <Typography>{firstPassage}</Typography>
-                <Typography variant='body1' align='justify'>
-                  {secondPassage}
-                </Typography>
-                <Typography variant='body1' align='justify'>
-                  {thirdPassage}
-                </Typography>
-                <Typography variant='body1' align='justify'>
-                  {fourthPassage}
-                </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    paddingLeft: "30px",
-                  }}>
-                  <ol>
-                    <Typography variant='body1' align='justify'>
-                      <li>{fithPassage}</li>
-                    </Typography>
-                    <Typography variant='body1' align='justify'>
-                      <li>{sixthPassage}</li>
-                    </Typography>
-                    <Typography variant='body1' align='justify'>
-                      <li>{seventhPassage}</li>
-                    </Typography>
-                  </ol>
-                </Box>
-                <Typography variant='body1' align='justify'>
-                  {eigthPassage}
-                </Typography>
-                <Typography variant='body1' align='justify'>
-                  {ninthPassage}
-                </Typography>
-              </Container>
-            </Box>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "20px",
-              }}>
-              <Button sx={{}} variant='contained'>
-                Absenden
-              </Button>
-            </Box>
-          </Paper>
-        </Container>
-      </main>
+        </Box>
+      </Container>
+      <Container
+        id='memberCardContainer'
+        maxWidth={false}
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "20px",
+          width: "100vw",
+          justifyContent: "center",
+        }}>
+        {searchOption === "community" && constituencyMainDisplay
+          ? constituencyMainDisplay.map((member) => (
+              <MemberCard
+                handleMemberSelection={handleMemberSelection}
+                key={member.id}>
+                {member}
+              </MemberCard>
+            ))
+          : null}
+        {searchOption === "member" && memberDisplay
+          ? memberDisplay.map((member) => (
+              <MemberCard
+                handleMemberSelection={handleMemberSelection}
+                key={member.id}>
+                {member}
+              </MemberCard>
+            ))
+          : null}
+        {constituencyAdditionalDisplay.length > 0 ? (
+          <Typography
+            variant='h5'
+            component='div'
+            sx={{ width: "100vw", textAlign: "center" }}>
+            Vielleicht interessieren sich auch diese Abgeordneten für deine
+            Nachricht:
+          </Typography>
+        ) : null}
+        {searchOption === "community" && constituencyAdditionalDisplay
+          ? constituencyAdditionalDisplay.map((member) => (
+              <MemberCard
+                handleMemberSelection={handleMemberSelection}
+                additional
+                key={member.id}>
+                {member}
+              </MemberCard>
+            ))
+          : null}
+      </Container>
+      <Container
+        id='letterContainer'
+        sx={{ maxWidth: "100%" }}
+        maxWidth={false}>
+        <Letter mailAdresses={mailAdresses} />
+      </Container>
     </>
   );
 }
