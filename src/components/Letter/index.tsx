@@ -1,4 +1,5 @@
-import { Send } from "@material-ui/icons";
+import { FileCopy, Send } from "@material-ui/icons";
+import { CopyAll } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -11,22 +12,21 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-const firstPassage = "Sehr geehrter Bundestagsabgeordneter,";
-const secondPassage =
+const firstPassage =
   "Ich schreibe Ihnen*, um meine Bedenken hinsichtlich der Alternative für Deutschland (AfD) zum Ausdruck zu bringen. Als Bürger*in dieses Landes bin ich besorgt über die Auswirkungen, die diese Partei auf unsere Gesellschaft hat. Ihre politischen Positionen und Rhetorik haben zu einer zunehmenden Polarisierung und Spaltung in unserer Gesellschaft geführt.";
-const thirdPassage =
+const secondPassage =
   "Es ist wichtig, dass wir als Gesellschaft eine offene und ehrliche Diskussion über die Rolle der AfD in unserer Politik führen. Ich bitte Sie* daher, das Thema eines Verbotsverfahrens gegen die AfD im Bundestag zur Diskussion zu stellen. Es ist von entscheidender Bedeutung, dass wir die Auswirkungen ihrer Politik auf unsere Demokratie und unsere Gesellschaft gründlich untersuchen.";
-const fourthPassage =
+const thirdPassage =
   "Hier sind drei Argumente, die meiner Meinung nach für ein Verbot der AfD sprechen:";
-const fithPassage =
+const fourthPassage =
   "Gefährdung der Demokratie: Die AfD hat wiederholt Positionen vertreten, die den Grundprinzipien unserer Demokratie widersprechen. Dies untergräbt das Vertrauen in unsere demokratischen Institutionen und gefährdet die Stabilität unserer Gesellschaft.";
-const sixthPassage =
+const fithPassage =
   "Förderung von Hass und Intoleranz: Die AfD hat wiederholt rassistische, fremdenfeindliche und islamfeindliche Äußerungen getätigt. Diese Rhetorik fördert Hass und Intoleranz und trägt zu einer Atmosphäre der Angst und Unsicherheit bei.";
-const seventhPassage =
+const sixthPassage =
   "Untergrabung des sozialen Zusammenhalts: Die Politik der AfD trägt zur Spaltung unserer Gesellschaft bei. Anstatt den sozialen Zusammenhalt zu fördern, schürt die Partei Konflikte und fördert die Entfremdung zwischen verschiedenen Gruppen in unserer Gesellschaft.";
-const eigthPassage =
+const seventhPassage =
   "Ich möchte mich in diesem Land sicher und wohl fühlen. Aber die Aktivitäten und die Rhetorik der AfD schaffen eine Atmosphäre der Unsicherheit und Angst. Ich bitte Sie* daher, diese Angelegenheit ernst zu nehmen und Maßnahmen zu ergreifen, um unsere Gesellschaft zu schützen.";
-const ninthPassage =
+const eigthPassage =
   "Ich verstehe, dass ein Parteiverbot ein drastischer Schritt ist und nicht leichtfertig unternommen werden sollte. Aber ich glaube, dass es angesichts der aktuellen Umstände notwendig ist, diese Option ernsthaft in Betracht zu ziehen. Ich danke Ihnen* für Ihre Aufmerksamkeit und hoffe, dass Sie* diese Angelegenheit ernst nehmen.";
 const emailText = [
   firstPassage,
@@ -37,13 +37,15 @@ const emailText = [
   sixthPassage,
   seventhPassage,
   eigthPassage,
-  ninthPassage,
 ];
 
 export default function Letter({ mailAdresses }: { mailAdresses: string }) {
   const [greetingsName, setSetGreetingsName] = useState<string>("");
+  const [formOfAdress, setFormOfAdress] = useState<string>(
+    "Sehr geehrte*r Bundestagsabgeordnete*r"
+  );
+  const emailBody = formOfAdress + "\n\n" + emailText.join("\n\n");
   const greetings = "Mit freundlichen Grüßen";
-  const emailBody = emailText.join("\n\n");
   const mailtoString = `mailto:${mailAdresses}?subject=Meine Bedenken hinsichtlich der AfD&body=${encodeURIComponent(
     emailBody
   )}%0D%0A%0D%0A${greetings},%0D%0A${greetingsName}`;
@@ -73,20 +75,21 @@ export default function Letter({ mailAdresses }: { mailAdresses: string }) {
           Betreff: Meine Bedenken hinsichtlich der AfD
         </Typography>
         <FormControl>
-          <NativeSelect>
+          <NativeSelect
+            onChange={(event) => setFormOfAdress(event.target.value)}>
             <option>Sehr geehrte*r Bundestagsabgeordnete*r</option>
             <option>Liebe*r Bundestagsabgeordneter</option>
             <option>Sehr geehrter Damen und Herren</option>
           </NativeSelect>
         </FormControl>
         <Typography variant='body1' align='justify'>
+          {firstPassage}
+        </Typography>
+        <Typography variant='body1' align='justify'>
           {secondPassage}
         </Typography>
         <Typography variant='body1' align='justify'>
           {thirdPassage}
-        </Typography>
-        <Typography variant='body1' align='justify'>
-          {fourthPassage}
         </Typography>
         <Box
           sx={{
@@ -97,27 +100,27 @@ export default function Letter({ mailAdresses }: { mailAdresses: string }) {
           <ol>
             <li>
               <Typography variant='body1' align='justify'>
-                {fithPassage}
+                {fourthPassage}
               </Typography>
             </li>
 
             <li>
               <Typography variant='body1' align='justify'>
-                {sixthPassage}
+                {fithPassage}
               </Typography>
             </li>
             <li>
               <Typography variant='body1' align='justify'>
-                {seventhPassage}
+                {sixthPassage}
               </Typography>
             </li>
           </ol>
         </Box>
         <Typography variant='body1' align='justify'>
-          {eigthPassage}
+          {seventhPassage}
         </Typography>
         <Typography variant='body1' align='justify'>
-          {ninthPassage}
+          {eigthPassage}
         </Typography>
         <Typography variant='body1' align='justify'>
           {greetings}
@@ -134,8 +137,33 @@ export default function Letter({ mailAdresses }: { mailAdresses: string }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          flexDirection: "column",
+          gap: "30px",
           pt: "40px",
         }}>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-evenly",
+          }}>
+          <Button
+            variant='outlined'
+            endIcon={<CopyAll />}
+            onClick={() => {
+              navigator.clipboard.writeText(mailAdresses);
+            }}>
+            Nur Mail-Adressen kopieren
+          </Button>
+          <Button
+            variant='outlined'
+            endIcon={<CopyAll />}
+            onClick={() => {
+              navigator.clipboard.writeText(emailBody);
+            }}>
+            Nur Text kopieren
+          </Button>
+        </Box>
         <a href={mailtoString}>
           <Button sx={{}} variant='contained' endIcon={<Send />}>
             Absenden

@@ -79,6 +79,7 @@ export default function MemberAutocomplete({
 
   return (
     <Autocomplete
+      sx={{ width: "50vw", margin: "auto" }}
       multiple
       id='checkboxes-tags-demo'
       options={memberOptions}
@@ -102,7 +103,11 @@ export default function MemberAutocomplete({
       )}
       style={{ width: 500 }}
       renderInput={(params) => (
-        <TextField {...params} label='Checkboxes' placeholder='Favorites' />
+        <TextField
+          {...params}
+          variant='standard'
+          label='Bundestagsabgeordnete'
+        />
       )}
     />
   );

@@ -36,6 +36,7 @@ export default function ConstituencyAutocomplete({
 
   return (
     <Autocomplete
+      sx={{ width: "50vw", margin: "auto" }}
       disablePortal
       disableListWrap
       id='searchField'
@@ -49,7 +50,9 @@ export default function ConstituencyAutocomplete({
       onInputChange={(event, value) => {
         handleSearchValue(value);
       }}
-      renderInput={(params) => <TextField {...params} label={"Gemeinde"} />}
+      renderInput={(params) => (
+        <TextField variant='standard' {...params} label={"Gemeinde"} />
+      )}
       renderOption={(props, option, state) =>
         [props, option, state.index] as React.ReactNode
       }

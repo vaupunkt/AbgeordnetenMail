@@ -24,9 +24,10 @@ import members from "../data/btw21_members.json" assert { type: "json" };
 import constituencies from "../data/btw21_constituencies.json" assert { type: "json" };
 import MemberCard from "@/components/MemberCard";
 import Letter from "@/components/Letter";
+import Footer from "@/components/Footer";
 
 export default function Home() {
-  const [searchOption, setSearchOption] = useState<string>("");
+  const [searchOption, setSearchOption] = useState<string>("member");
   const [searchConstituency, setSearchConstituency] = useState<string>("");
   const [searchMember, setSearchMember] = useState<
     {
@@ -165,6 +166,7 @@ export default function Home() {
             justifyContent: "center",
             marginTop: "100px",
             marginBottom: "100px",
+            width: "95vw",
           }}>
           <Typography variant='h2' component='div' sx={{ textAlign: "center" }}>
             AFD Verbot jetzt?
@@ -194,7 +196,7 @@ export default function Home() {
             label='mit AFD'
           />
         </Box>
-        <Box sx={{ margin: "auto", width: "80vw" }}>
+        <Box sx={{ width: "100%" }}>
           {searchOption === "community" ? (
             <ConstituencyAutocomplete handleSearchValue={handleSearchValue} />
           ) : searchOption === "member" ? (
@@ -255,9 +257,20 @@ export default function Home() {
       </Container>
       <Container
         id='letterContainer'
-        sx={{ maxWidth: "100%" }}
+        sx={{ maxWidth: "900px", margin: "40px auto" }}
         maxWidth={false}>
         <Letter mailAdresses={mailAdresses} />
+      </Container>
+      <Container
+        maxWidth={false}
+        sx={{
+          boxShadow: "0 0 2px 5px #dcdcdc",
+          backgroundColor: "#dcdcdc",
+          width: "100%",
+          padding: 0,
+          margin: 0,
+        }}>
+        <Footer></Footer>
       </Container>
     </>
   );

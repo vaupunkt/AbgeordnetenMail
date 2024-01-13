@@ -4,9 +4,16 @@
   margin: 0;
 }
 
+html {
+  background: radial-gradient(circle, #c2c2c23b 10%, transparent 11%);
+  background-size: 2em 2em;
+  background-color: #f1f1f11c;
+}
+
 body {
   margin: 0;
   height: 100%;
+  opacity: 1;
 }
 
 #root {
