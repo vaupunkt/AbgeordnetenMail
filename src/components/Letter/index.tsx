@@ -21,13 +21,13 @@ const thirdPassage =
 const fourthPassage =
   "Gefährdung der Demokratie: Die AfD hat wiederholt Positionen vertreten, die den Grundprinzipien unserer Demokratie widersprechen. Dies untergräbt das Vertrauen in unsere demokratischen Institutionen und gefährdet die Stabilität unserer Gesellschaft.";
 const fithPassage =
-  "Förderung von Hass und Intoleranz: Die AfD hat wiederholt rassistische, fremdenfeindliche und islamfeindliche Äußerungen getätigt. Diese Rhetorik fördert Hass und Intoleranz und trägt zu einer Atmosphäre der Angst und Unsicherheit bei.";
+  "Förderung von Hass und Intoleranz: Die AfD hat wiederholt rassistische, queerfeindliche, fremdenfeindliche und islamfeindliche Äußerungen getätigt. Diese Rhetorik trägt zu einer Atmosphäre der Angst und Unsicherheit bei.";
 const sixthPassage =
   "Untergrabung des sozialen Zusammenhalts: Die Politik der AfD trägt zur Spaltung unserer Gesellschaft bei. Anstatt den sozialen Zusammenhalt zu fördern, schürt die Partei Konflikte und fördert die Entfremdung zwischen verschiedenen Gruppen in unserer Gesellschaft.";
 const seventhPassage =
-  "Ich möchte mich in diesem Land sicher und wohl fühlen. Aber die Aktivitäten und die Rhetorik der AfD schaffen eine Atmosphäre der Unsicherheit und Angst. Ich bitte Sie* daher, diese Angelegenheit ernst zu nehmen und Maßnahmen zu ergreifen, um unsere Gesellschaft zu schützen.";
+  "Ich möchte mich in diesem Land sicher und wohl fühlen. Aber die Aktivitäten und die Rhetorik der AfD schaffen eine Atmosphäre in der sich Menschen mit und ohne Migrationshintergrund unsicher fühlen. Ich bitte Sie* daher, diese Angelegenheit ernst zu nehmen und Maßnahmen zu ergreifen, um unsere Gesellschaft zu schützen und unser Grundgesetz zu verteidigen.";
 const eigthPassage =
-  "Ich verstehe, dass ein Parteiverbot ein drastischer Schritt ist und nicht leichtfertig unternommen werden sollte. Aber ich glaube, dass es angesichts der aktuellen Umstände notwendig ist, diese Option ernsthaft in Betracht zu ziehen. Ich danke Ihnen* für Ihre Aufmerksamkeit und hoffe, dass Sie* diese Angelegenheit ernst nehmen.";
+  "Ich verstehe, dass ein Parteiverbot ein drastischer Schritt ist und nicht leichtfertig unternommen werden sollte. Aber ich glaube, dass es angesichts der aktuellen Umstände notwendig ist, diese Option ernsthaft in Betracht zu ziehen und zu prüfen. Ich danke Ihnen* für Ihre Aufmerksamkeit und hoffe, dass Sie* diese Angelegenheit ernst nehmen.";
 const emailText = [
   firstPassage,
   secondPassage,
