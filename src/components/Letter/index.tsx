@@ -149,6 +149,7 @@ export default function Letter({ mailAdresses }: { mailAdresses: string }) {
           }}>
           <Button
             variant='outlined'
+            disabled={mailAdresses === ""}
             endIcon={<CopyAll />}
             onClick={() => {
               navigator.clipboard.writeText(mailAdresses);
@@ -165,7 +166,11 @@ export default function Letter({ mailAdresses }: { mailAdresses: string }) {
           </Button>
         </Box>
         <a href={mailtoString}>
-          <Button sx={{}} variant='contained' endIcon={<Send />}>
+          <Button
+            sx={{}}
+            variant='contained'
+            endIcon={<Send />}
+            disabled={mailAdresses === ""}>
             Absenden
           </Button>
         </a>
