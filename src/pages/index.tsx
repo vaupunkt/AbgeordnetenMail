@@ -166,7 +166,7 @@ export default function Home() {
             justifyContent: "center",
             marginTop: "100px",
             marginBottom: "100px",
-            width: "95vw",
+            width: "90vw",
           }}>
           <Typography variant='h2' component='div' sx={{ textAlign: "center" }}>
             AFD Verbot jetzt?
@@ -180,9 +180,10 @@ export default function Home() {
             display: "flex",
             width: "100%",
             justifyContent: "space-evenly",
+            padding: "0 10px",
             margin: "auto",
           }}>
-          <FormControl sx={{ textAlign: "center", minWidth: "60%" }}>
+          <FormControl sx={{ textAlign: "center", maxWidth: "300px" }}>
             <NativeSelect
               id='selectSearchOption'
               defaultValue='member'
@@ -196,7 +197,7 @@ export default function Home() {
             label='mit AFD'
           />
         </Box>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", padding: "0 10px" }}>
           {searchOption === "community" ? (
             <ConstituencyAutocomplete handleSearchValue={handleSearchValue} />
           ) : searchOption === "member" ? (
@@ -267,7 +268,7 @@ export default function Home() {
           boxShadow: "0 0 2px 5px #dcdcdc",
           backgroundColor: "#dcdcdc",
           width: "100%",
-          padding: 0,
+          padding: "10px",
           margin: 0,
         }}>
         <Footer></Footer>

@@ -36,7 +36,7 @@ export default function ConstituencyAutocomplete({
 
   return (
     <Autocomplete
-      sx={{ width: "50vw", margin: "auto" }}
+      sx={{ maxWidth: "500px", margin: "auto" }}
       disablePortal
       disableListWrap
       id='searchField'

@@ -18,10 +18,16 @@ export default function Footer() {
           Impressum (Angaben gemäß § 5 TMG)
         </Typography>
         <Typography sx={{ userSelect: "none" }} variant='body1' align='justify'>
-          <p>Veliko Kardziev</p>
-          <p>Neureutherstr. 4</p>
-          <p>80799 München</p>
-          <p>E-Mail: mail@velikokardziev.de</p>
+          Veliko Kardziev
+        </Typography>
+        <Typography sx={{ userSelect: "none" }} variant='body1' align='justify'>
+          Neureutherstr. 4
+        </Typography>
+        <Typography sx={{ userSelect: "none" }} variant='body1' align='justify'>
+          80799 München
+        </Typography>
+        <Typography sx={{ userSelect: "none" }} variant='body1' align='justify'>
+          E-Mail: mail@velikokardziev.de
         </Typography>
       </Box>
       <Box sx={{ maxWidth: "500px" }}>

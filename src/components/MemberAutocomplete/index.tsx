@@ -79,7 +79,7 @@ export default function MemberAutocomplete({
 
   return (
     <Autocomplete
-      sx={{ width: "50vw", margin: "auto" }}
+      sx={{ maxWidth: "500px", margin: "auto" }}
       multiple
       id='checkboxes-tags-demo'
       options={memberOptions}
@@ -101,7 +101,6 @@ export default function MemberAutocomplete({
           {option.name}
         </li>
       )}
-      style={{ width: 500 }}
       renderInput={(params) => (
         <TextField
           {...params}
