@@ -2,7 +2,7 @@
 
 Find your representatives and write them a letter about the AfD ban.
 
-This project allows you to search for Bundestag members by name or constituency and send them a pre-written email about the AfD ban. The email includes a link to a petition calling for the AfD to be banned from the Bundestag.
+This project allows you to search for Bundestag members by name or constituency and send them a pre-written email about the AfD ban.
 
 ## How to use:
 

@@ -161,7 +161,7 @@ export default function Letter({ mailAdresses }: { mailAdresses: string }) {
             variant='outlined'
             endIcon={<CopyAll />}
             onClick={() => {
-              navigator.clipboard.writeText(emailBody);
+              navigator.clipboard.writeText(emailBody + "\n\n" + greetings);
             }}>
             Nur Text kopieren
           </Button>
