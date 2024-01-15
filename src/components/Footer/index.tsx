@@ -1,8 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Share } from "@material-ui/icons";
 import { Box, Button, Typography } from "@mui/material";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Footer() {
@@ -58,20 +56,36 @@ export default function Footer() {
         flexWrap: "wrap",
         justifyContent: "space-between",
       }}>
-      <Box sx={{}}>
+      <Box>
         <Typography variant='h6' align='justify'>
           Impressum (Angaben gemäß § 5 TMG)
         </Typography>
-        <Typography sx={{ userSelect: "none" }} variant='body1' align='justify'>
+        <Typography
+          sx={{ userSelect: "none" }}
+          variant='body1'
+          align='justify'
+          aria-label='Veliko Kardziev'>
           Veliko Kardziev
         </Typography>
-        <Typography sx={{ userSelect: "none" }} variant='body1' align='justify'>
+        <Typography
+          sx={{ userSelect: "none" }}
+          variant='body1'
+          align='justify'
+          aria-label='Neureutherstr. 4'>
           Neureutherstr. 4
         </Typography>
-        <Typography sx={{ userSelect: "none" }} variant='body1' align='justify'>
+        <Typography
+          sx={{ userSelect: "none" }}
+          variant='body1'
+          align='justify'
+          aria-label='80799 München'>
           80799 München
         </Typography>
-        <Typography sx={{ userSelect: "none" }} variant='body1' align='justify'>
+        <Typography
+          sx={{ userSelect: "none" }}
+          variant='body1'
+          align='justify'
+          aria-label='E-Mail: mail@velikokardziev.de'>
           E-Mail: mail@velikokardziev.de
         </Typography>
         {userAgent === "mobile" ? (
@@ -80,7 +94,8 @@ export default function Footer() {
               variant='outlined'
               color='primary'
               onClick={handleShare}
-              startIcon={<Share />}>
+              startIcon={<Share />}
+              aria-label='Diese Seite weiterleiten'>
               Diese Seite weiterleiten
             </Button>
           </Box>
@@ -89,17 +104,25 @@ export default function Footer() {
       <Box sx={{ maxWidth: "500px" }}>
         <Typography variant='body2' align='justify'>
           Diese Webseite steht nicht in Verbindung mit der Petition{" "}
-          <a href='https://innn.it/afdverbot'>
+          <a href='https://innn.it/afdverbot' aria-label='Prüft ein AFD Verbot'>
             "Prüft ein AFD Verbot" auf https://innn.it/afdverbot
           </a>{" "}
           sondern ist ein reines Zusatzangebot, erstellt mit öffentlich
           zugänglichen Daten:
         </Typography>
-        <Typography variant='caption'>
+        <Typography variant='caption' aria-label='Datenlizenz Deutschland'>
           (c) Die Bundeswahlleiterin, Wiesbaden 2024 Datenlizenz Deutschland –
-          Namensnennung – Version 2.0 (https://www.govdata.de/dl-de/by-2-0)
+          Namensnennung – Version 2.0 (
+          <a
+            href='https://www.govdata.de/dl-de/by-2-0'
+            aria-label='Datenlizenz Deutschland Link'>
+            https://www.govdata.de/dl-de/by-2-0
+          </a>
+          )
         </Typography>
-        <Typography variant='caption'>
+        <Typography
+          variant='caption'
+          aria-label='Ergebnisse der Wahlbezirksstatistik'>
           Ergebnisse der Wahlbezirksstatistik zur Bundestagswahl 2021 Endgültig
           gewählte Bewerberinnen und Bewerber bei der Wahl zum 20. Deutschen
           Bundestag (26. September 2021) sowie Mitgliedschaftsverluste und
