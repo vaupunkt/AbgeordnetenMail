@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Share } from "@material-ui/icons";
+import { Share } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 

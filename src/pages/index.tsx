@@ -23,7 +23,6 @@ import constituencies from "../data/btw21_constituencies.json" assert { type: "j
 import MemberCard from "@/components/MemberCard";
 import Letter from "@/components/Letter";
 import Footer from "@/components/Footer";
-import { Share } from "@mui/icons-material";
 import MoreInformation from "@/components/MoreInformation";
 
 export default function Home() {

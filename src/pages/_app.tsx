@@ -3,18 +3,10 @@ import type { AppProps } from "next/app";
 import { Roboto } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import {
-  ThemeProvider,
-  createTheme,
-  makeStyles,
-} from "@material-ui/core/styles";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 const theme = createTheme();
-const useStyles = makeStyles((theme) => {
-  root: {
-    // some CSS that accesses the theme
-  }
-});
+
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],

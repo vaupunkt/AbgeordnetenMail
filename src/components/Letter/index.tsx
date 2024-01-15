@@ -1,5 +1,4 @@
-import { FileCopy, Send } from "@material-ui/icons";
-import { CopyAll } from "@mui/icons-material";
+import { CopyAll, Send } from "@mui/icons-material";
 import {
   Box,
   Button,

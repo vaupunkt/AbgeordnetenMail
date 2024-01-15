@@ -1,7 +1,11 @@
-import { Checkbox, TextField } from "@mui/material";
 import * as React from "react";
+import { Checkbox, TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import { CheckBox, CheckBoxOutlineBlankOutlined } from "@material-ui/icons";
+import {
+  CheckBox,
+  CheckBoxOutlineBlank,
+  CheckBoxOutlined,
+} from "@mui/icons-material";
 
 export type memberList = {
   id: number;
@@ -17,7 +21,7 @@ export type memberList = {
   emoji: string;
 };
 
-const icon = <CheckBoxOutlineBlankOutlined fontSize='small' />;
+const icon = <CheckBoxOutlineBlank fontSize='small' />;
 const checkedIcon = <CheckBox fontSize='small' />;
 
 export default function MemberAutocomplete({
