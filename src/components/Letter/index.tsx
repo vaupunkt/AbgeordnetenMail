@@ -6,6 +6,7 @@ import {
   FormControl,
   NativeSelect,
   Paper,
+  Skeleton,
   TextField,
   Typography,
 } from "@mui/material";
@@ -120,13 +121,13 @@ export default function Letter({ mailAdresses }: { mailAdresses: string }) {
           </NativeSelect>
         </FormControl>
         <Typography variant='body1' align='justify'>
-          {emailText[0]}
+          {emailText[0] ?? <Skeleton variant='rounded' height={100} />}
         </Typography>
         <Typography variant='body1' align='justify'>
-          {emailText[1]}
+          {emailText[1] ?? <Skeleton variant='rounded' height={90} />}
         </Typography>
         <Typography variant='body1' align='justify'>
-          {emailText[2]}
+          {emailText[2] ?? <Skeleton variant='rounded' height={30} />}
         </Typography>
         <Box
           sx={{
@@ -137,27 +138,27 @@ export default function Letter({ mailAdresses }: { mailAdresses: string }) {
           <ol>
             <li>
               <Typography variant='body1' align='justify'>
-                {emailText[3]}
+                {emailText[3] ?? <Skeleton variant='rounded' height={60} />}
               </Typography>
             </li>
 
             <li>
               <Typography variant='body1' align='justify'>
-                {emailText[4]}
+                {emailText[4] ?? <Skeleton variant='rounded' height={60} />}
               </Typography>
             </li>
             <li>
               <Typography variant='body1' align='justify'>
-                {emailText[5]}
+                {emailText[5] ?? <Skeleton variant='rounded' height={60} />}
               </Typography>
             </li>
           </ol>
         </Box>
         <Typography variant='body1' align='justify'>
-          {emailText[6]}
+          {emailText[6] ?? <Skeleton variant='rounded' height={80} />}
         </Typography>
         <Typography variant='body1' align='justify'>
-          {emailText[7]}
+          {emailText[7] ?? <Skeleton variant='rounded' height={750} />}
         </Typography>
         <Typography variant='body1' align='justify'>
           {greetings}
