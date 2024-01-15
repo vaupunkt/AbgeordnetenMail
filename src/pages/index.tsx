@@ -167,7 +167,8 @@ export default function Home() {
           gap: "10px",
           paddingTop: "50px",
           paddingBottom: "50px",
-        }}>
+        }}
+        aria-label='Main Container'>
         <Box
           sx={{
             display: "flex",
@@ -177,14 +178,20 @@ export default function Home() {
             marginBottom: "100px",
             width: "100%",
             padding: "10px",
-          }}>
+          }}
+          aria-label='Header Box'>
           <Typography
             variant='h2'
             component='div'
-            sx={{ width: "100%", margin: "auto", textAlign: "center" }}>
+            sx={{ width: "100%", margin: "auto", textAlign: "center" }}
+            aria-label='Page Title'>
             AFD Verbot jetzt?
           </Typography>
-          <Typography variant='h3' component='div' sx={{ textAlign: "center" }}>
+          <Typography
+            variant='h3'
+            component='div'
+            sx={{ textAlign: "center" }}
+            aria-label='Subtitle'>
             Schreibe deine*n Abgeordnet*innen
           </Typography>
         </Box>
