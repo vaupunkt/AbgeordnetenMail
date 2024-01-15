@@ -1,29 +1,17 @@
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  FormControlLabel,
-  NativeSelect,
-  Switch,
-  Typography,
-} from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Head from "next/head";
 import * as React from "react";
 import { useState } from "react";
-import ConstituencyAutocomplete, {
-  constituencyOption,
-} from "@/components/ConstituencyAutocomplete";
-import MemberAutocomplete, {
-  createEmail,
-  memberList,
-} from "@/components/MemberAutocomplete";
+import { constituencyOption } from "@/components/ConstituencyAutocomplete";
+import { createEmail, memberList } from "@/components/MemberAutocomplete";
 import members from "../data/btw21_members.json" assert { type: "json" };
 import constituencies from "../data/btw21_constituencies.json" assert { type: "json" };
 import MemberCard from "@/components/MemberCard";
 import Letter from "@/components/Letter";
 import Footer from "@/components/Footer";
 import MoreInformation from "@/components/MoreInformation";
+import Title from "@/components/Title";
+import Search from "@/components/Search";
 
 export default function Home() {
   const [searchOption, setSearchOption] = useState<string>("member");
@@ -168,64 +156,15 @@ export default function Home() {
           paddingBottom: "50px",
         }}
         aria-label='Main Container'>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            marginTop: "100px",
-            marginBottom: "100px",
-            width: "100%",
-            padding: "10px",
-          }}
-          aria-label='Header Box'>
-          <Typography
-            variant='h2'
-            component='div'
-            sx={{ width: "100%", margin: "auto", textAlign: "center" }}
-            aria-label='Page Title'>
-            AFD Verbot jetzt?
-          </Typography>
-          <Typography
-            variant='h3'
-            component='div'
-            sx={{ textAlign: "center" }}
-            aria-label='Subtitle'>
-            Schreibe deine*n Abgeordnet*innen
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-evenly",
-            padding: "0 10px",
-            margin: "auto",
-          }}>
-          <FormControl sx={{ textAlign: "center", maxWidth: "300px" }}>
-            <NativeSelect
-              id='selectSearchOption'
-              defaultValue='member'
-              onChange={(event) => handleSearchOption(event)}>
-              <option value={"member"}>Namen</option>
-              <option value={"community"}>Gemeinde / Wahlkreis</option>
-            </NativeSelect>
-          </FormControl>
-          <FormControlLabel
-            control={<Switch onChange={() => setAfdFilter(!afdFilter)} />}
-            label='mit AFD'
-          />
-        </Box>
-        <Box sx={{ width: "100%", padding: "0 10px" }}>
-          {searchOption === "community" ? (
-            <ConstituencyAutocomplete handleSearchValue={handleSearchValue} />
-          ) : searchOption === "member" ? (
-            <MemberAutocomplete
-              memberList={memberList}
-              handleSearchValue={handleSearchValue}
-            />
-          ) : null}
-        </Box>
+        <Title />
+        <Search
+          handleSearchOption={handleSearchOption}
+          handleSearchValue={handleSearchValue}
+          searchOption={searchOption}
+          memberList={memberList}
+          afdFilter={afdFilter}
+          setAfdFilter={setAfdFilter}
+        />
       </Container>
       <Container
         id='memberCardContainer'
