@@ -97,13 +97,27 @@ export function createEmail(member: any): string {
     .replace(/ö/g, "oe")
     .replace(/ü/g, "ue")
     .replace(/ß/g, "ss")
-    .replace(/ğ/g, "g");
+    .replace(/ğ/g, "g")
+    .replace(/á|à|â/g, "a")
+    .replace(/é|è|ê/g, "e")
+    .replace(/í|ì|î/g, "i")
+    .replace(/ó|ò|ô/g, "o")
+    .replace(/ú|ù|û/g, "u")
+    .replace(/ç/g, "c")
+    .replace(/ñ/g, "n");
   nachname = nachname
     .replace(/ä/g, "ae")
     .replace(/ö/g, "oe")
     .replace(/ü/g, "ue")
     .replace(/ß/g, "ss")
-    .replace(/ğ/g, "g");
+    .replace(/ğ/g, "g")
+    .replace(/á|à|â/g, "a")
+    .replace(/é|è|ê/g, "e")
+    .replace(/í|ì|î/g, "i")
+    .replace(/ó|ò|ô/g, "o")
+    .replace(/ú|ù|û/g, "u")
+    .replace(/ç/g, "c")
+    .replace(/ñ/g, "n");
 
   // Namenszusatz hinzufügen, falls vorhanden
   if (namenszusatz) {
