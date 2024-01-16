@@ -63,6 +63,7 @@ export default function Home() {
   );
 
   const memberList: memberList[] = members
+    .filter((member) => member["VerlustMitgliedschaftDatum"] === "")
     .map((member, index) => ({
       id: index,
       name: member["Vornamen"] + " " + member["Nachname"],
