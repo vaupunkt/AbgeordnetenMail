@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: "/abgeordnetenmail",
+  // basePath: "/abgeordnetenmail",
   output: "export",
   reactStrictMode: true,
 };
